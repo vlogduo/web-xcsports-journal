@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>杏彩体育 · 知识库导航页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(145deg, #fce9d7 0%, #fbddc8 50%, #fad0b5 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+            line-height: 1.6;
+            color: #3e2c1a;
+        }
+
+        .page-wrap {
+            max-width: 1080px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* 主卡片 */
+        .directory-card {
+            background: #fffcf9;
+            border-radius: 40px 40px 32px 32px;
+            padding: 2.5rem 2.8rem 3rem;
+            box-shadow: 0 20px 40px rgba(160, 100, 60, 0.15), 0 8px 16px rgba(0,0,0,0.03);
+            transition: box-shadow 0.25s ease;
+        }
+
+        @media (max-width: 640px) {
+            .directory-card {
+                padding: 1.8rem 1.2rem 2rem;
+                border-radius: 28px;
+            }
+        }
+
+        /* 标题 */
+        .hero-title {
+            font-size: 2.1rem;
+            font-weight: 580;
+            letter-spacing: -0.02em;
+            color: #5a3822;
+            border-left: 6px solid #d98f5c;
+            padding-left: 1.2rem;
+            margin-bottom: 1.8rem;
+        }
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 1.6rem;
+                padding-left: 0.9rem;
+            }
+        }
+
+        .hero-sub {
+            font-size: 1.05rem;
+            color: #6a4c32;
+            background: #fdf0e6;
+            padding: 0.9rem 1.4rem;
+            border-radius: 60px;
+            display: inline-block;
+            margin-bottom: 2.4rem;
+            font-weight: 430;
+            box-shadow: inset 0 1px 3px rgba(180, 110, 60, 0.08);
+        }
+
+        /* 网格目录 */
+        .section-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.8rem;
+            margin-bottom: 2.8rem;
+        }
+        @media (max-width: 700px) {
+            .section-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+
+        .info-block {
+            background: #fdf6ee;
+            border-radius: 24px;
+            padding: 1.5rem 1.6rem;
+            transition: background 0.2s;
+            box-shadow: 0 2px 6px rgba(170, 105, 55, 0.06);
+        }
+
+        .info-block h3 {
+            font-size: 1.3rem;
+            font-weight: 540;
+            margin-bottom: 0.65rem;
+            color: #633f26;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .info-block h3::before {
+            content: "📌";
+            font-size: 1.15rem;
+            opacity: 0.8;
+        }
+        .info-block p {
+            margin-bottom: 0.5rem;
+        }
+        .info-block ul, .info-block dl {
+            margin-top: 0.3rem;
+            padding-left: 1.2rem;
+        }
+        .info-block li {
+            margin-bottom: 0.25rem;
+            list-style-type: "· ";
+        }
+
+        /* 提示区 / callout */
+        .callout-box {
+            background: #f8ede2;
+            border-radius: 30px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2.2rem;
+            border: 1px solid #e6d2bf;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 0.3rem 0.8rem;
+        }
+        .callout-box .callout-label {
+            font-weight: 560;
+            color: #7b4e2e;
+            background: #e9d5c2;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            letter-spacing: 0.02em;
+        }
+        .callout-box .callout-text {
+            flex: 1;
+            min-width: 200px;
+        }
+        .callout-box a {
+            color: #8f5f38;
+            font-weight: 540;
+            text-decoration: none;
+            border-bottom: 2px solid #dba87a;
+            transition: border-color 0.15s, color 0.15s;
+        }
+        .callout-box a:hover {
+            color: #5f381e;
+            border-bottom-color: #9b6b42;
+        }
+
+        /* 链接按钮样式 (融入句子) */
+        .inline-link-btn {
+            color: #7b4f2c;
+            font-weight: 530;
+            background: #f3e3d6;
+            padding: 0.1rem 0.7rem;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: background 0.2s, box-shadow 0.2s;
+            white-space: nowrap;
+            box-shadow: inset 0 0 0 1px rgba(170, 110, 60, 0.25);
+        }
+        .inline-link-btn:hover {
+            background: #e9d3c0;
+            box-shadow: inset 0 0 0 1px #b5835a, 0 2px 5px rgba(130, 70, 30, 0.15);
+        }
+
+        /* 相关信息区 */
+        .faq-mini {
+            background: #fcf2e9;
+            border-radius: 28px;
+            padding: 1.8rem 2rem;
+            margin-top: 2.2rem;
+        }
+        .faq-mini h4 {
+            font-size: 1.2rem;
+            font-weight: 540;
+            margin-bottom: 0.6rem;
+            color: #4f3521;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .faq-mini h4::before {
+            content: "❓";
+            font-size: 1.1rem;
+        }
+        .faq-item {
+            margin: 0.6rem 0 0.3rem;
+        }
+        .faq-question {
+            font-weight: 500;
+            color: #553e2a;
+        }
+        .faq-answer {
+            margin-left: 1.2rem;
+            color: #5a4230;
+            padding: 0.2rem 0 0.2rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #e4cfbb;
+            margin: 1.8rem 0 1.2rem;
+            opacity: 0.5;
+        }
+
+        .foot-note {
+            font-size: 0.9rem;
+            color: #7a6049;
+            text-align: center;
+            margin-top: 1.8rem;
+            background: #f6ece2;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            display: inline-block;
+            width: auto;
+        }
+
+        /* 响应式微调 */
+        @media (max-width: 480px) {
+            .callout-box {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.3rem;
+                padding: 1.2rem 1.2rem;
+            }
+            .faq-mini {
+                padding: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrap">
+    <div class="directory-card">
+
+        <div class="hero-title">📖 杏彩体育 · 知识速查库</div>
+        <div class="hero-sub">日常查询 · 对照阅读 · 延伸了解</div>
+
+        <!-- 网格目录：说明区 + 特点/场景 -->
+        <div class="section-grid">
+            <div class="info-block">
+                <h3> 说明区</h3>
+                <p>本页汇集与<a href="https://web-xcsports.com" class="inline-link-btn">杏彩体育</a>相关的常见知识节点，适合日常参照、对比与索引。内容均整理自公开可查的信息，保持客观中立。</p>
+                <p style="margin-top:0.5rem;">主要覆盖：平台定位、基础功能、适用场景及常见问题概览。如果你需要更详细的资料，可以随时查阅相关页面。</p>
+            </div>
+            <div class="info-block">
+                <h3> 特点与场景</h3>
+                <ul>
+                    <li>体育数据覆盖：多赛事、多联赛基本盘</li>
+                    <li>界面交互简洁，适合快速查阅与对照</li>
+                    <li>常用场景：赛前资讯对比、数据统计延伸阅读</li>
+                    <li>日常查询：赛事前瞻、历史记录梳理</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 提示区 -->
+        <div class="callout-box">
+            <span class="callout-label">💡 参考提示</span>
+            <span class="callout-text">
+                若想深入了解，可在 <a href="https://web-xcsports.com" class="inline-link-btn">杏彩体育</a> 中对照具体模块。所有内容建议结合官方公开说明使用，保持信息同步。
+            </span>
+        </div>
+
+        <!-- 相关信息区 / FAQ 摘要 + 延伸 -->
+        <div class="faq-mini">
+            <h4> 相关信息摘要</h4>
+            <div class="faq-item">
+                <div class="faq-question">▸ 平台主要提供什么类型的内容？</div>
+                <div class="faq-answer">以体育赛事数据、资讯及基础分析为主，覆盖多个主流联赛与杯赛，方便用户查询对比。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">▸ 日常使用中如何更高效查阅？</div>
+                <div class="faq-answer">建议按赛事分类或时间线浏览，配合关键字检索。可先熟悉界面布局，再逐步深入对照。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">▸ 延伸阅读推荐方向</div>
+                <div class="faq-answer">同类赛事历史数据对比、规则变化解读、赛季趋势整理等，均可作为后续拓展内容。</div>
+            </div>
+            <hr>
+            <p style="font-size:0.95rem; margin-top:0.6rem;">📎 以上摘要仅作引导，具体内容请以实际页面为准。你可以随时在 <a href="https://web-xcsports.com" class="inline-link-btn">杏彩体育</a> 中查看更多信息。</p>
+        </div>
+
+        <div class="foot-note">
+            ⚡ 知识库入口 · 持续整理
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
